@@ -49,16 +49,18 @@
 
 		<h2>Overview</h2>
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Our rasterizer takes the three points that define the triangle and uses them to create a bounding box by finding the minimum and maximum x and y values of the points. We then iterate through this bounding box and test if a point is inside or outside the triangle. We do this by seeing if the point is on the inside or outside of any of the sides of the triangle. If a point is on the inside of all three lines, it is inside the triangle. If a point passes this test, it is rounded to an integer value and draw using the fill_pixel function.
+
+		This is not any worse than an algorithm that checks each sample within the boudning box of the triangle, because that is exactly what our algorithm does. 
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
+				  <img src="screenshot_2-11_15-34-8.png" width="400px"/>
 				  <figcaption>Caption goes here.</figcaption>
 				</td>
 				<td style="text-align: center;">
