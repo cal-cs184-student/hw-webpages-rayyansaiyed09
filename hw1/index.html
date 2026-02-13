@@ -55,34 +55,39 @@
 
 		This is not any worse than an algorithm that checks each sample within the boudning box of the triangle, because that is exactly what our algorithm does. 
 
+		<figure>
+			<img src="screenshot_2-11_15-34-8.png" alt="cubeman" style="width:50%"/>
+			<figcaption>The new cubeman doing a jumping jack.</figcaption>
+		</figure>
+		
+		<h2>Task 2: Antialiasing by Supersampling</h2>
+		
+		The main idea behind super sampling is to initially treat our frame buffer as if it has a higher pixel resolution than it really does (called the sample buffer). Therefore we did not have to change the rasterize triangle too much aside from the indexing logic into the sample buffer. More critically, when the sample buffer is written, we have to crash it down to the actual frame buffer size. We iterated through each of the frame buffer's pixels and for each pixel, we indexed all the sample_rate-number of samples in the sample_buffer. We then read the stored color and added it into a vector of colors. After reading all the super sampled pixels, we averaged the colors for each rgb value and stored that new Color in the frame buffer. Super sampling is very useful because it allows us to better approximate how much of a shape is actually in the pixel, rather than just testing if the center of the pixel is filled in or not. Pixels can now be partially on/off rather than completely on/off.
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="screenshot_2-11_15-34-8.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="task2/sample_rate1.png" width="400px"/>
+				  <figcaption>Basic shapes without sharp edges look decent, however edges are very sharp. One pixel is fully turned on, and the one next to it is completely off. Some pixels in between are even turned off since the triangle does not pass through the center of the pixel creawting a jagged look.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="task2/sample_rate2.png" width="400px"/>
+				  <figcaption>Already more improved, as gaps between pixels no longer exist (only at the very very corner pixel). Shades of color are introduced, slightly easing edges. Slghtly more pixels have a lower shade of color. This is coming from the pixels whose centers were originally not filled in, but there corners were.  </figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="task2/sample_rate3.png" width="400px"/>
+				  <figcaption>Visually continuous at sharp corners. Not much of a difference for basic shapes since the same percentage of pixels are being covered no matter the sampling rate (e.g. long edge of yellow triangle will have pixels who are 50% covered, whether sampled at 4, 9 etc.).</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="task2/sample_rate4.png" width="400px"/>
+				  <figcaption>Appears nearly perfect from the larger perspective. Edges of pixel look very soft. Pixel inspector reveals many more pixels have at least some shade compared to no super sampling.  </figcaption>
 				</td>
 			  </tr>
 			</table>
 		</div>
-		
-		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>Task 3: Transforms</h2>
 		The new cubeman was edited to look like he is mid-jumping jack, or doing a star jump. 
