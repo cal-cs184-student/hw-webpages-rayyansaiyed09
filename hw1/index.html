@@ -69,7 +69,7 @@
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task2/sample_rate1.png" width="400px"/>
-				  <figcaption>1 sample / pixel - Basic shapes without sharp edges look decent, however edges are very sharp. One pixel is fully turned on, and the one next to it is completely off. Some pixels in between are even turned off since the triangle does not pass through the center of the pixel creawting a jagged look.</figcaption>
+				  <figcaption>1 sample / pixel - Basic shapes without sharp edges look decent, however edges are very sharp. One pixel is fully turned on, and the one next to it is completely off. Some pixels in between are even turned off since the triangle does not pass through the center of the pixel creating a jagged look.</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="task2/sample_rate4.png" width="400px"/>
@@ -98,10 +98,18 @@
 
 		<h2>Task 4: Barycentric coordinates</h2>
 		Barycentric coordinates are a coordinate system where points are defined within a triangle with 'masses' on the triangles vertices. For certain masses on each vertex of a triangle, a point is defined as the center of mass of that triangle.
+		You can use barycentric interpolation to interpolate across a triangle based on the 'weights' on each vertex. The below image demonstrates this by using different colors as 'weights.'
+		
+		<figure>
+			<img src="smooth_triangle.png" alt="color circle" style="width:50%"/>
+			<figcaption>This triangle has one red, one green, and one blue vertex. Using barycentric interpolation, the color across the entire triangle is rendered as shown.</figcaption>
+		</figure>
+		
 		<figure>
 			<img src="hw-webpages-rayyansaiyed09/hw1/task4-color-circle.png" alt="color circle" style="width:50%"/>
 			<figcaption>Color circle rendered using barycentric interpolation.</figcaption>
 		</figure>
+
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
 		Pixel sampling is a process used to map a color from a 2D texture to a pixel on a screen when rendering a 3D object. Pixels nearly never line up perfectly with a texture element, so pixel sampling is used to bridge the gap between the two.
@@ -151,22 +159,22 @@
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="task5-bilinear-1.png" width="400px"/>
-				  <figcaption>1 sample / pixel - Basic shapes without sharp edges look decent, however edges are very sharp. One pixel is fully turned on, and the one next to it is completely off. Some pixels in between are even turned off since the triangle does not pass through the center of the pixel creawting a jagged look.</figcaption>
+				  <img src="task6-lzero-pnearest.png" width="400px"/>
+				  <figcaption>Very jagged corners with little to no blending into the background. Very few pixels are anything except completely dark or completely white, leading to sharp edges and visible jaggies, even when zoomed out.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="task5-bilinear-16.png" width="400px"/>
-				  <figcaption>4 samples / pixel - Already more improved, as gaps between pixels no longer exist (only at the very very corner pixel). Shades of color are introduced, slightly easing edges. Slghtly more pixels have a lower shade of color. This is coming from the pixels whose centers were originally not filled in, but there corners were.  </figcaption>
+				  <img src="task6-lzero-plinear.png" width="400px"/>
+				  <figcaption>Similarly jagged to using pnearest, but with slightly better smoothing along the edge of the ploygon. There are still visible jaggies in the smoothed out image, but they are not as pronounced as using the nearest neighbor approach.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="task5-nearest-1.png" width="400px"/>
-				  <figcaption>9 samples / pixel - Visually continuous at sharp corners. Not much of a difference for basic shapes since the same percentage of pixels are being covered no matter the sampling rate (e.g. long edge of yellow triangle will have pixels who are 50% covered, whether sampled at 4, 9 etc.).</figcaption>
+				  <img src="task6-lneareset-plinear.png" width="400px"/>
+				  <figcaption>Much more smoothing present at the polygon edges, with many pixel values being interpolated between black and white. There are still slight jaggies visible in the full image, though they are more blurred together than when using other approaches.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="task5-nearest-1.png" width="400px"/>
-				  <figcaption>16 samples / pixel - Appears nearly perfect from the larger perspective. Edges of pixel look very soft. Pixel inspector reveals many more pixels have at least some shade compared to no super sampling.  </figcaption>
+				  <img src="task6-lnearest-pnearest.png" width="400px"/>
+				  <figcaption>Highest smoothing level of these four configurations. The smoothing moves consistently from full black to full white, and the jaggies in the full zoomed out image are much less pronounced. This approach with a slightly higher sample count would likely eliminate the jaggies alltogether.</figcaption>
 				</td>
 			  </tr>
 			</table>
