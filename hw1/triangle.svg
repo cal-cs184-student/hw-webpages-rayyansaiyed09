@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+  <polygon points="200,50 350,350 50,350" 
+           fill="url(#gradient)" />
+           
+  <defs>
+    <linearGradient id="gradient">
+      <stop offset="0%" stop-color="#FF0000" />
+      <stop offset="50%" stop-color="#0000FF" />
+      <stop offset="100%" stop-color="#FFFF00" />
+    </linearGradient>
+  </defs>
+</svg>

@@ -97,27 +97,79 @@
 		</figure>
 
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Barycentric coordinates are a coordinate system where points are defined within a triangle with 'masses' on the triangles vertices. For certain masses on each vertex of a triangle, a point is defined as the center of mass of that triangle.
+		<figure>
+			<img src="hw-webpages-rayyansaiyed09/hw1/task4-color-circle.png" alt="color circle" style="width:50%"/>
+			<figcaption>Color circle rendered using barycentric interpolation.</figcaption>
+		</figure>
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Pixel sampling is a process used to map a color from a 2D texture to a pixel on a screen when rendering a 3D object. Pixels nearly never line up perfectly with a texture element, so pixel sampling is used to bridge the gap between the two.
+		You can do this by just using the color from the nearest texture element, or by interpolating across adjacent elements.
+
+		We used a helper function to determine barycentric coordinates for a sample point, and then got the corresponding texel for that sample point by reading the mipmap with a hardcoded level of 0.
+		For the bilinear interpolation, we got the texel values for the four corners of the four nearest pixels of the sample point. We then interpolated from bottom left to top left, a second from bottom right to top right, and then a third between those two. 
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task5-bilinear-1.png" width="400px"/>
+				  <figcaption>1 sample / pixel - Basic shapes without sharp edges look decent, however edges are very sharp. One pixel is fully turned on, and the one next to it is completely off. Some pixels in between are even turned off since the triangle does not pass through the center of the pixel creawting a jagged look.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task5-bilinear-16.png" width="400px"/>
+				  <figcaption>4 samples / pixel - Already more improved, as gaps between pixels no longer exist (only at the very very corner pixel). Shades of color are introduced, slightly easing edges. Slghtly more pixels have a lower shade of color. This is coming from the pixels whose centers were originally not filled in, but there corners were.  </figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task5-nearest-1.png" width="400px"/>
+				  <figcaption>9 samples / pixel - Visually continuous at sharp corners. Not much of a difference for basic shapes since the same percentage of pixels are being covered no matter the sampling rate (e.g. long edge of yellow triangle will have pixels who are 50% covered, whether sampled at 4, 9 etc.).</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task5-nearest-1.png" width="400px"/>
+				  <figcaption>16 samples / pixel - Appears nearly perfect from the larger perspective. Edges of pixel look very soft. Pixel inspector reveals many more pixels have at least some shade compared to no super sampling.  </figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Level sampling is used to determine what resolution of a texture is to be used during rendering. This is needed to avoid texture aliasing, which occurs when a large texture is mapped to a small pixel area. This causes flickering due to many texture elements being skipped during the search for a sample.
+		This can again be done by either choosing the nearest mipmap level to determine the texture resolution, or by interpolating between the two closest levels to smooth things out.-		
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Pixel sampling is fast and doesn't use much memory, but has limited effect in smoothing out textures. Level sampling is a little slower and uses more memory, but is effective in reducing flicker. Increasing sample per pixel is slow and uses lots of memory, but is strong in fixing jagged edges.
+		
+		Depending on the values of LSM and PSM, we changed how we calculated the mipmap level. When doing a linear interpolation, we would get the barycentric coordinates of the sample point and the two adjacent points (higher x value and higher y value). We would then compute the mipmap level for each of these points and take a weighted average to get the final level to be used on the sample point.-
+		We calculated this level using the method described in lecture - we calculated the distance by creating vectors in uv space, and then using the formula given in lecture to determine the level used. 
 
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+		Each combination of LSM and PSM called different methods, be that bilinear or nearest, in different combinations. We reused helper functions from past parts to use the different methods for each case.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task5-bilinear-1.png" width="400px"/>
+				  <figcaption>1 sample / pixel - Basic shapes without sharp edges look decent, however edges are very sharp. One pixel is fully turned on, and the one next to it is completely off. Some pixels in between are even turned off since the triangle does not pass through the center of the pixel creawting a jagged look.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task5-bilinear-16.png" width="400px"/>
+				  <figcaption>4 samples / pixel - Already more improved, as gaps between pixels no longer exist (only at the very very corner pixel). Shades of color are introduced, slightly easing edges. Slghtly more pixels have a lower shade of color. This is coming from the pixels whose centers were originally not filled in, but there corners were.  </figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task5-nearest-1.png" width="400px"/>
+				  <figcaption>9 samples / pixel - Visually continuous at sharp corners. Not much of a difference for basic shapes since the same percentage of pixels are being covered no matter the sampling rate (e.g. long edge of yellow triangle will have pixels who are 50% covered, whether sampled at 4, 9 etc.).</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task5-nearest-1.png" width="400px"/>
+				  <figcaption>16 samples / pixel - Appears nearly perfect from the larger perspective. Edges of pixel look very soft. Pixel inspector reveals many more pixels have at least some shade compared to no super sampling.  </figcaption>
+				</td>
+			  </tr>
+			</table>
 		</div>
 	</body>
 </html>
