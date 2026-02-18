@@ -58,7 +58,6 @@
 		<h2>Task 2: Antialiasing by Supersampling</h2>
 		
 		The main idea behind super sampling is to initially treat our frame buffer as if it has a higher pixel resolution than it really does (called the sample buffer). Therefore we did not have to change the rasterize triangle too much aside from the indexing logic into the sample buffer. More critically, when the sample buffer is written, we have to crash it down to the actual frame buffer size. We iterated through each of the frame buffer's pixels and for each pixel, we indexed all the sample_rate-number of samples in the sample_buffer. We then read the stored color and added it into a vector of colors. After reading all the super sampled pixels, we averaged the colors for each rgb value and stored that new Color in the frame buffer. Super sampling is very useful because it allows us to better approximate how much of a shape is actually in the pixel, rather than just testing if the center of the pixel is filled in or not. Pixels can now be partially on/off rather than completely on/off.
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
