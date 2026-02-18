@@ -154,21 +154,21 @@
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task6-lzero-pnearest.png" width="400px"/>
-				  <figcaption>Very jagged corners with little to no blending into the background. Very few pixels are anything except completely dark or completely white, leading to sharp edges and visible jaggies, even when zoomed out.</figcaption>
+				  <figcaption> L_ZERO & P_NEAREST - Very jagged corners with little to no blending into the background. Very few pixels are anything except completely dark or completely white, leading to sharp edges and visible jaggies, even when zoomed out.</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="task6-lzero-plinear.png" width="400px"/>
-				  <figcaption>Similarly jagged to using pnearest, but with slightly better smoothing along the edge of the ploygon. There are still visible jaggies in the smoothed out image, but they are not as pronounced as using the nearest neighbor approach.</figcaption>
+				  <figcaption> L_ZERO & P_LINEAR - Similarly jagged to using pnearest, but with slightly better smoothing along the edge of the ploygon. There are still visible jaggies in the smoothed out image, but they are not as pronounced as using the nearest neighbor approach.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task6-lneareset-plinear.png" width="400px"/>
-				  <figcaption>Much more smoothing present at the polygon edges, with many pixel values being interpolated between black and white. There are still slight jaggies visible in the full image, though they are more blurred together than when using other approaches.</figcaption>
+				  <figcaption> L_NEAREST & P_LINEAR - Much more smoothing present at the polygon edges, with many pixel values being interpolated between black and white. There are still slight jaggies visible in the full image, though they are more blurred together than when using other approaches.</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="task6-lnearest-pnearest.png" width="400px"/>
-				  <figcaption>Highest smoothing level of these four configurations. The smoothing moves consistently from full black to full white, and the jaggies in the full zoomed out image are much less pronounced. This approach with a slightly higher sample count would likely eliminate the jaggies alltogether.</figcaption>
+				  <figcaption> L_NEAREST & P_NEAREST - Highest smoothing level of these four configurations. The smoothing moves consistently from full black to full white, and the jaggies in the full zoomed out image are much less pronounced. This approach with a slightly higher sample count would likely eliminate the jaggies alltogether.</figcaption>
 				</td>
 			  </tr>
 			</table>
