@@ -140,12 +140,12 @@
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
 		Level sampling is used to determine what resolution of a texture is to be used during rendering. This is needed to avoid texture aliasing, which occurs when a large texture is mapped to a small pixel area. This causes flickering due to many texture elements being skipped during the search for a sample.
-		This can again be done by either choosing the nearest mipmap level to determine the texture resolution, or by interpolating between the two closest levels to smooth things out.-		
+		This can again be done by either choosing the nearest mipmap level to determine the texture resolution, or by interpolating between the two closest levels to smooth things out.	
 
 		Pixel sampling is fast and doesn't use much memory, but has limited effect in smoothing out textures. Level sampling is a little slower and uses more memory, but is effective in reducing flicker. Increasing sample per pixel is slow and uses lots of memory, but is strong in fixing jagged edges.
 		
-		Depending on the values of LSM and PSM, we changed how we calculated the mipmap level. When doing a linear interpolation, we would get the barycentric coordinates of the sample point and the two adjacent points (higher x value and higher y value). We would then compute the mipmap level for each of these points and take a weighted average to get the final level to be used on the sample point.-
-		We calculated this level using the method described in lecture - we calculated the distance by creating vectors in uv space, and then using the formula given in lecture to determine the level used. 
+		Depending on the values of LSM and PSM, we changed how we calculated the mipmap level. When doing a linear interpolation, we would get the barycentric coordinates of the sample point and the two adjacent points (higher x value and higher y value). We would then compute the mipmap level for each of these points and take a weighted average to get the final level to be used on the sample point.
+		We calculated this level using the method described in lecture. We calculated the distance by creating vectors in uv space, and then using the formula given in lecture to determine the level used. 
 
 		Each combination of LSM and PSM called different methods, be that bilinear or nearest, in different combinations. We reused helper functions from past parts to use the different methods for each case.
 
