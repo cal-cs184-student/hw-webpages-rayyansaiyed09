@@ -43,7 +43,7 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		In this assignment, we implemented a basic engine to render SVG images with different parameters. We used multiple techniques described in lecture, like line tests, supersampling, nearest neighbor texture mapping, and more. We learned about how there is a lot of computation and detail that goes into just drawing simple shapes on a computer screen. There are lots of issues that can crop up, like jagged edges, aliasing, and other rendering artifacts. Using various rendering techniques, these can be mitigated to create a better-looking image. 
 		
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		Our rasterizer takes the three points that define the triangle and uses them to create a bounding box by finding the minimum and maximum x and y values of the points. We then iterate through this bounding box and test if a point is inside or outside the triangle. We do this by seeing if the point is on the inside or outside of any of the sides of the triangle. If a point is on the inside of all three lines, it is inside the triangle. If a point passes this test, it is rounded to an integer value and draw using the fill_pixel function.
