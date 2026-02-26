@@ -39,7 +39,7 @@
 		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
 
 		<figure>
-			<img src="teapot.png" alt="Teapot" style="width:50%"/>
+			<img src="images/teapot.png" alt="Teapot" style="width:50%"/>
 			<figcaption>You can add images with captions!</figcaption>
 		</figure>
 
@@ -53,29 +53,47 @@
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
 		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Bezier curves can be generated using de Casteljau's algorithm. Given <i>n</i> control points and a parameter <i>t</i> whose value is between 0 and 1, this algorithm uses a recursive computation to generate a point on the Bezier curve. 
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+		Starting with <i>n</i> points, <i>n-1</i> points are generated on the lines that connect the original points. These new points are a distance between the original points that is proportional to the parameter <i>t</i>. Once those new points are calculated, the process repeats until a single point is reached. This is the point that is on the Bezier curve. The original points are called <i>control points</i>.
+
+		In our implementation, we take the points from the input and first check how many there are. If there's 2 or more, then the algorithm is implemented using the parameter <i>t</i> defined in the 'BezierCurve' class. Once the new points have been calculated, they are added to the vector using <mark>push_back()</mark>.
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part1_curve.png" width="400px"/>
+				  <figcaption>6 control points.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part1_first_lerp.png" width="400px"/>
+				  <figcaption>First interpolation step.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part1_second_lerp.png" width="400px"/>
+				  <figcaption>Second interpolation step.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part1_third_lerp.png" width="400px"/>
+				  <figcaption>Third interpolation step.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part1_fourth_lerp.png" width="400px"/>
+				  <figcaption>Fourth interpolation step.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part1_final_point.png" width="400px"/>
+				  <figcaption>Final interpolation step - the red point lies on the curve.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part1_lerps_and_curves.png" width="400px"/>
+				  <figcaption>Curve alongside interpolation steps.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part1_controls_and_curve.png" width="400px"/>
+				  <figcaption>Curve and control points without interpolation steps.</figcaption>
 				</td>
 			  </tr>
 			</table>
@@ -88,13 +106,30 @@
 		<code> BezierPatch::evaluate </code>: This is responsible for parsing through the provided 2D array of points and invoking <code>evaluate1D()</code> on every row using the parameter u. This returns a new list of points which we can once again call <code>evaluateStep()</code> with parameter v to return us our final coordinate. <br></br>
 
 		<figure>
-			<img src="rendered_teapot.png" alt="Teapot" style="width:50%"/>
+			<img src="images/rendered_teapot.png" alt="Teapot" style="width:50%"/>
 			<figcaption>Teapot image rendered with separable 1D de Casteljau</figcaption>
 		</figure>
+
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+		We first iterated through all the adjacent triangles that the vertex (v0) is part of by doing <code>halfedge = halfedge->twin()->next();</code>. For each of these halfedges (triangles), we calculate the normal by finding the two connected vertices (v1, v2). Since we are guaranteed triangles (and no other polygon), we just need 2 more vertices. Using these vertices we then found the normal by calculating the cross product using vertex position: \( (v1 - v0) x (v2 - v0) \). We then sum up all the normals for each face and normalize this total normal. 
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task3-teapot.png" width="400px"/>
+				  <figcaption>Original teapot shading with no normalization. Sharp edges on surface makes triangles very apparent.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task3-normal.png" width="400px"/>
+				  <figcaption>With Phong shading, surface of teapot is much smoother.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 
 		<h3>Part 4: Edge flip</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
