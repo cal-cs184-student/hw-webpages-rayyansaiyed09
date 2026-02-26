@@ -38,11 +38,6 @@
 		
 		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
 
-		<figure>
-			<img src="images/teapot.png" alt="Teapot" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
-
 		<!--
 		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
 		-->
@@ -106,7 +101,7 @@
 		<code> BezierPatch::evaluate </code>: This is responsible for parsing through the provided 2D array of points and invoking <code>evaluate1D()</code> on every row using the parameter u. This returns a new list of points which we can once again call <code>evaluateStep()</code> with parameter v to return us our final coordinate. <br></br>
 
 		<figure>
-			<img src="images/rendered_teapot.png" alt="Teapot" style="width:50%"/>
+			<img src="rendered_teapot.png" alt="Teapot" style="width:50%"/>
 			<figcaption>Teapot image rendered with separable 1D de Casteljau</figcaption>
 		</figure>
 
@@ -114,7 +109,7 @@
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
 
-		We first iterated through all the adjacent triangles that the vertex (v0) is part of by doing <code>halfedge = halfedge->twin()->next();</code>. For each of these halfedges (triangles), we calculate the normal by finding the two connected vertices (v1, v2). Since we are guaranteed triangles (and no other polygon), we just need 2 more vertices. Using these vertices we then found the normal by calculating the cross product using vertex position: \( (v1 - v0) x (v2 - v0) \). We then sum up all the normals for each face and normalize this total normal. 
+		We first iterated through all the adjacent triangles that the vertex (v0) is part of by doing <code>halfedge = halfedge->twin()->next()</code>. For each of these halfedges (triangles), we calculate the normal by finding the two connected vertices (v1, v2). Since we are guaranteed triangles (and no other polygon), we just need 2 more vertices. Using these vertices we then found the normal by calculating the cross product using vertex position: \( (v1 - v0) x (v2 - v0) \). We then sum up all the normals for each face and normalize this total normal. 
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
