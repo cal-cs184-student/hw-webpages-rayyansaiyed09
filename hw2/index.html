@@ -85,9 +85,12 @@
 		In this part, we expanded on de Casteljau from Part 1 to create Bezier surfaces. There were three function to modify:<br></br> 
 		<code> BezierPatch::evaluateStep </code>: Basically the same as part 1, this function was responsible for doing a lerp between every pair of \(n) points, returning \(n - 1) new points. <br></br>
 		<code> BezierPatch::evaluate1D </code>: This function calls <code>evaluateStep()</code> recursively to determine the final control point. <br></br>
-		<code> BezierPatch::evaluate </code>: This is responsible for parsing through the provided 2D array of points and invoking <code>evaluate1D()</code> on every row using the parameter u. This returns a new list of points which we can once again call <code>evaluateStep()</code> with parameter v to return us our final coordinate.
+		<code> BezierPatch::evaluate </code>: This is responsible for parsing through the provided 2D array of points and invoking <code>evaluate1D()</code> on every row using the parameter u. This returns a new list of points which we can once again call <code>evaluateStep()</code> with parameter v to return us our final coordinate. <br></br>
 
-		<img src="rendered_teapot.png" width="400px"/>
+		<figure>
+			<img src="rendered_teapot.png" alt="Teapot" style="width:50%"/>
+			<figcaption>Teapot image rendered with separable 1D de Casteljau</figcaption>
+		</figure>
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
