@@ -130,52 +130,70 @@
 		In our code, the first step we did was clearly define every mesh element (vertices, edges, halfedges, faces). once we had pointers to each of these, we then used the <code>HalfedgeMesh::setNeighbors()</code> to reassign the edges. Using vertices as described in the spec:
 		<figure>
 			<img src="edgeflip_diagram.png" alt="Teapot" style="width:75%"/>
+			<figcaption>f0 corresponds to the face of abc which shifts to adc. Similarly, f1 corresponds to bdc and then abd.</figcaption>
+
 		</figure>
 
-		<table style="width:100%; border-collapse: collapse; font-family: sans-serif; text-align: left;">
+		<table style="width:100%; border-collapse: collapse; font-family: sans-serif; text-align: left; margin-top: 20px;">
 		<thead>
-			<tr style="border-bottom: 2px solid #444; background-color: #f2f2f2;">
-			<th style="padding: 15px 30px;">Variable Name</th>
-			<th style="padding: 15px 30px;">Element Type</th>
-			<th style="padding: 15px 30px;">How to Fetch (Before Flip)</th>
-			</tr>
+		<tr style="border-bottom: 2px solid #444; background-color: #f2f2f2;">
+		<th style="padding: 12px; border: 1px solid #ddd;">Half-edge</th>
+		<th style="padding: 12px; border: 1px solid #ddd;">Next</th>
+		<th style="padding: 12px; border: 1px solid #ddd;">Twin</th>
+		<th style="padding: 12px; border: 1px solid #ddd;">Vertex (Source)</th>
+		<th style="padding: 12px; border: 1px solid #ddd;">Edge</th>
+		<th style="padding: 12px; border: 1px solid #ddd;">Face</th>
+		</tr>
 		</thead>
 		<tbody>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>h0</code></td>
-			<td style="padding: 12px 30px;">Halfedge</td>
-			<td style="padding: 12px 30px;"><code>e0->halfedge()</code></td>
-			</tr>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>h1</code></td>
-			<td style="padding: 12px 30px;">Halfedge</td>
-			<td style="padding: 12px 30px;"><code>h0->twin()</code></td>
-			</tr>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>h2</code></td>
-			<td style="padding: 12px 30px;">Halfedge</td>
-			<td style="padding: 12px 30px;"><code>h0->next()</code></td>
-			</tr>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>h3</code></td>
-			<td style="padding: 12px 30px;">Halfedge</td>
-			<td style="padding: 12px 30px;"><code>h2->next()</code></td>
-			</tr>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>v0</code></td>
-			<td style="padding: 12px 30px;">Vertex</td>
-			<td style="padding: 12px 30px;"><code>h0->vertex()</code></td>
-			</tr>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>v2</code></td>
-			<td style="padding: 12px 30px;">Vertex</td>
-			<td style="padding: 12px 30px;"><code>h2->next()->vertex()</code></td>
-			</tr>
-			<tr style="border-bottom: 1px solid #ddd;">
-			<td style="padding: 12px 30px;"><code>f0</code></td>
-			<td style="padding: 12px 30px;">Face</td>
-			<td style="padding: 12px 30px;"><code>h0->face()</code></td>
-			</tr>
+		<tr style="border-bottom: 1px solid #ddd;">
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_bc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_dc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_cb</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>v_a</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>e_bc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>f0</code></td>
+		</tr>
+		<tr style="border-bottom: 1px solid #ddd; background-color: #fafafa;">
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_cb</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_ab</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_bc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>v_d</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>e_bc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>f1</code></td>
+		</tr>
+		<tr style="border-bottom: 1px solid #ddd;">
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_ca</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_bc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_ca->twin()</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>v_c</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>e_ca</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>f0</code></td>
+		</tr>
+		<tr style="border-bottom: 1px solid #ddd; background-color: #fafafa;">
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_ab</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_bd</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_ab->twin()</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>v_a</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>e_ab</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>f1</code></td>
+		</tr>
+		<tr style="border-bottom: 1px solid #ddd;">
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_bd</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_cb</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_bd->twin()</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>v_b</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>e_bd</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>f1</code></td>
+		</tr>
+		<tr style="border-bottom: 1px solid #ddd; background-color: #fafafa;">
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_dc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_ca</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>h_dc->twin()</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>v_d</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>e_dc</code></td>
+		<td style="padding: 12px; border: 1px solid #ddd;"><code>f0</code></td>
+		</tr>
 		</tbody>
 		</table>
 
