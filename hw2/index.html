@@ -127,7 +127,79 @@
 		</div>
 
 		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		In our code, the first step we did was clearly define every mesh element (vertices, edges, halfedges, faces). once we had pointers to each of these, we then used the <code>HalfedgeMesh::setNeighbors()</code> to reassign the edges. Using vertices as described in the spec:
+		<figure>
+			<img src="edgeflip_diagram.png" alt="Teapot" style="width:50%"/>
+		</figure>
+
+		<table>
+			<thead>
+				<tr>
+				<th>Half-edge</th>
+				<th>Next</th>
+				<th>Twin</th>
+				<th>Vertex (Source)</th>
+				<th>Edge</th>
+				<th>Face</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<td><strong>h_bc</strong></td>
+				<td>h_dc</td>
+				<td>h_cb</td>
+				<td>v_a</td>
+				<td>e_bc</td>
+				<td>f0</td>
+				</tr>
+				<tr>
+				<td><strong>h_cb</strong></td>
+				<td>h_ab</td>
+				<td>h_bc</td>
+				<td>v_d</td>
+				<td>e_bc</td>
+				<td>f1</td>
+				</tr>
+				<tr>
+				<td><strong>h_ca</strong></td>
+				<td>h_bc</td>
+				<td>h_ca->twin()</td>
+				<td>v_c</td>
+				<td>h_ca->edge()</td>
+				<td>f0</td>
+				</tr>
+				<tr>
+				<td><strong>h_ab</strong></td>
+				<td>h_bd</td>
+				<td>h_ab->twin()</td>
+				<td>v_a</td>
+				<td>h_ab->edge()</td>
+				<td>f1</td>
+				</tr>
+				<tr>
+				<td><strong>h_bd</strong></td>
+				<td>h_cb</td>
+				<td>h_bd->twin()</td>
+				<td>v_b</td>
+				<td>h_bd->edge()</td>
+				<td>f1</td>
+				</tr>
+				<tr>
+				<td><strong>h_dc</strong></td>
+				<td>h_ca</td>
+				<td>h_dc->twin()</td>
+				<td>v_d</td>
+				<td>h_dc->edge()</td>
+				<td>f0</td>
+				</tr>
+			</tbody>
+		</table>
+
+		It was also important to update the halfedge corresponding to each of the faces. Using these reassignments we were able to create the following:
+		<figure>
+			<img src="task4-teapot-zigzag.png" alt="Teapot" style="width:50%"/>
+			<figcaption>Zigzag edges were created by flipping the edges of every other row.</figcaption>
+		</figure>
 
 		<h3>Part 5: Edge split</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
