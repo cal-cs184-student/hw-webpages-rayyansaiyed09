@@ -132,67 +132,51 @@
 			<img src="edgeflip_diagram.png" alt="Teapot" style="width:75%"/>
 		</figure>
 
-		<table>
-			<thead>
-				<tr>
-				<th>Half-edge</th>
-				<th>Next</th>
-				<th>Twin</th>
-				<th>Vertex (Source)</th>
-				<th>Edge</th>
-				<th>Face</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-				<td><strong>h_bc</strong></td>
-				<td>h_dc</td>
-				<td>h_cb</td>
-				<td>v_a</td>
-				<td>e_bc</td>
-				<td>f0</td>
-				</tr>
-				<tr>
-				<td><strong>h_cb</strong></td>
-				<td>h_ab</td>
-				<td>h_bc</td>
-				<td>v_d</td>
-				<td>e_bc</td>
-				<td>f1</td>
-				</tr>
-				<tr>
-				<td><strong>h_ca</strong></td>
-				<td>h_bc</td>
-				<td>h_ca->twin()</td>
-				<td>v_c</td>
-				<td>h_ca->edge()</td>
-				<td>f0</td>
-				</tr>
-				<tr>
-				<td><strong>h_ab</strong></td>
-				<td>h_bd</td>
-				<td>h_ab->twin()</td>
-				<td>v_a</td>
-				<td>h_ab->edge()</td>
-				<td>f1</td>
-				</tr>
-				<tr>
-				<td><strong>h_bd</strong></td>
-				<td>h_cb</td>
-				<td>h_bd->twin()</td>
-				<td>v_b</td>
-				<td>h_bd->edge()</td>
-				<td>f1</td>
-				</tr>
-				<tr>
-				<td><strong>h_dc</strong></td>
-				<td>h_ca</td>
-				<td>h_dc->twin()</td>
-				<td>v_d</td>
-				<td>h_dc->edge()</td>
-				<td>f0</td>
-				</tr>
-			</tbody>
+		<table style="width:100%; border-collapse: collapse; font-family: sans-serif; text-align: left;">
+		<thead>
+			<tr style="border-bottom: 2px solid #444; background-color: #f2f2f2;">
+			<th style="padding: 15px 30px;">Variable Name</th>
+			<th style="padding: 15px 30px;">Element Type</th>
+			<th style="padding: 15px 30px;">How to Fetch (Before Flip)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>h0</code></td>
+			<td style="padding: 12px 30px;">Halfedge</td>
+			<td style="padding: 12px 30px;"><code>e0->halfedge()</code></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>h1</code></td>
+			<td style="padding: 12px 30px;">Halfedge</td>
+			<td style="padding: 12px 30px;"><code>h0->twin()</code></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>h2</code></td>
+			<td style="padding: 12px 30px;">Halfedge</td>
+			<td style="padding: 12px 30px;"><code>h0->next()</code></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>h3</code></td>
+			<td style="padding: 12px 30px;">Halfedge</td>
+			<td style="padding: 12px 30px;"><code>h2->next()</code></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>v0</code></td>
+			<td style="padding: 12px 30px;">Vertex</td>
+			<td style="padding: 12px 30px;"><code>h0->vertex()</code></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>v2</code></td>
+			<td style="padding: 12px 30px;">Vertex</td>
+			<td style="padding: 12px 30px;"><code>h2->next()->vertex()</code></td>
+			</tr>
+			<tr style="border-bottom: 1px solid #ddd;">
+			<td style="padding: 12px 30px;"><code>f0</code></td>
+			<td style="padding: 12px 30px;">Face</td>
+			<td style="padding: 12px 30px;"><code>h0->face()</code></td>
+			</tr>
+		</tbody>
 		</table>
 
 		It was also important to update the halfedge corresponding to each of the faces. Using these reassignments we were able to create the following:
