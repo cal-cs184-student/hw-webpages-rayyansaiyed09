@@ -43,7 +43,7 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		In this homework, we implemented an algorithm that can manipulate meshes via loop subdivision. First, we implemented a simple script that created bezier curves using control points in 2D. This was then extended to creating bezier surfaces in 3D. Then, we created an edge-splitting function and used it to implement loop subdivision to create high-resolution meshes of 3D objects. We learned about how meshing works and typical techniques used to render and edit meshes.
 
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
@@ -204,24 +204,85 @@
 		</figure>
 
 		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		The edge split algorithm takes an existing edge and creates a new vertex on it that splits it in half. This takes two triangles that share that edge and turns them into four. It does this by creating a new vertex at the midpoint of the edge being split. It then creates new edges using this point, along with their respective half-edges, twins, and faces.
+
+		<figure>
+			<img src="task5_mesh_before.png" alt="Teapot" style="width:75%"/>
+			<figcaption>Mesh before splitting/flipping.</figcaption>
+		</figure>
+
+		<figure>
+			<img src="task5_mesh_splits.png" alt="Teapot" style="width:75%"/>
+			<figcaption>Mesh after some edge splits.</figcaption>
+		</figure>
+
+		<figure>
+			<img src="task5_mesh_flips_splits.png" alt="Teapot" style="width:75%"/>
+			<figcaption>Mesh after some edge splits and flips.</figcaption>
+		</figure>
 
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Our edge spllitting algorithm first calculates where all the vertices will eventually end up in the subdivided mesh and stores the values. This value is calculated by taking a weighted average of the positions of neighbors. The vertex stay close to its original position, but gets pulled toward the center of the neighboring vertices.
 
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		New vertices that get created on split edges get positions decided by surrounding faces. For an edges shared by two triangles, the endpoints get a stronger weight in the average calculation, and their opposite vertices across the face get a weaker weight.
 
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+		Next, we use the <mark>splitEdge</mark> function to split all the edges from the original mesh in half. Edges that are unsplit (along the original path) are marked as such, and the new edges formed by the function are marked as <mark>isNew</mark>. We then flip all of these edges with the <mark>isNew = true</mark> property.
+
+		Finally, the vertices are updated with their new positions and the final mesh is created.
+
+		Loop subdivision causes the meshes to become more dense and more computationally demanding. The model becomes higher quality and more smooth.
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task6_step1.png" width="400px"/>
+				  <figcaption>Original mesh of the torus .dae object.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task6_step2.png" width="400px"/>
+				  <figcaption>First subdivision step.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task6_step3.png" width="400px"/>
+				  <figcaption>Second subdivision step.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task6_step4.png" width="400px"/>
+				  <figcaption>Third subdivision step - the shape now is much smoother and resembles a torus.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		
+		Sharp edges and corners are changed into curves as vertex positions are averaged and smoothed. This effect can be slightly reduced by pre-splitting the sharp edges, as is shown below.
+		<figure>
+			<img src="task6_hard_edge.png" alt="Asymmetric Cube" style="width:75%"/>
+			<figcaption>Torus after 1 round of subdivision with no pre-splitting.</figcaption>
+		</figure>
+
+		<figure>
+			<img src="task6_hard_edge_split.png".png" alt="Asymmetric Cube" style="width:75%"/>
+			<figcaption>Torus after 1 round of subdivision with pre-splitting on the outer edges.</figcaption>
+		</figure>
+		
+		The reason the cube becomes asymmetric using this subdivision method is because the faces are not triangular by default. This causes the subdivison algorithm to give different sides of the same face different weights when calculating new vertex positions. This causes asymmetry like this after a few rounds of subdivision:
+		
+		<figure>
+			<img src="task6_asymmetric.png" alt="Asymmetric Cube" style="width:75%"/>
+			<figcaption>Asymmetric cube after 3 rounds of subdivision on the mesh.</figcaption>
+		</figure>
+
+		This can be fixed by first splitting the edge that runs diagonally across each face. This turns the faces of the cube into symmetric triangles that are handled properly by the loop subdivision:
+
+		<figure>
+			<img src="task6_symmetric.png" alt="Symmetric Cube" style="width:75%"/>
+			<figcaption>Cube after 3 rounds of subdivision after pre-splitting the edges on each face.</figcaption>
+		</figure>
+		
 		</div>
 	</body>
 </html>
