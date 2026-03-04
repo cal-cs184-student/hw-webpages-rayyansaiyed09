@@ -204,7 +204,8 @@
 		</figure>
 
 		<h3>Part 5: Edge split</h3>
-		The edge split algorithm takes an existing edge and creates a new vertex on it that splits it in half. This takes two triangles that share that edge and turns them into four. It does this by creating a new vertex at the midpoint of the edge being split. It then creates new edges using this point, along with their respective half-edges, twins, and faces.
+		The edge split algorithm takes an existing edge and creates a new vertex on it that splits it in half. This takes two triangles that share that edge and turns them into four. It does this by creating a new vertex at the midpoint of the edge being split. It then creates new edges using this point, along with their respective half-edges, twins, and faces. <br></br>
+		As for debugging, we did not run into anything noteworthy since we explicitly defined every vertex/half-edge/edge in our code. We first redefined the two original faces as the bottom 2 faces, and then created 2 more faces for the upper 2 faces. By clearly defining these faces it helped us to avoid any strange bugs.
 
 		<figure>
 			<img src="task5_mesh_before.png" alt="Teapot" style="width:75%"/>
