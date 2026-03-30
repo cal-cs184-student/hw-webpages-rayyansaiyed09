@@ -197,12 +197,6 @@ Compare rendering times on a few scenes with moderately complex geometries with 
         We constructed a BVH by calculating the average x position of every primitive's centroid. This allows us to partition each primitive into a left and right half. We built this BVH by recursively calling construct_bvh on each of each half to fully construct the BVH. We then used to determine which primitive interescts with a given ray.  
       </p>
 
-      <img src="images/cblucy.png" align="middle" width="400px" />
-      <figcaption>CBlucy.png rendered using BVH.</figcaption>
-
-      <img src="images/maxplank.png" align="middle" width="400px" />
-      <figcaption>maxplank.png rendered using BVH.</figcaption>
-
       <table style="width:100%; border-collapse: collapse; font-family: sans-serif; text-align: left; margin-top: 20px;">
 		<thead>
 		<tr style="border-bottom: 2px solid #444; background-color: #f2f2f2;">
@@ -281,7 +275,7 @@ Compare rendering times on a few scenes with moderately complex geometries with 
         Present your results in a one-paragraph analysis.
       </h3>
       <p>
-        The naive render approach runs in O(n) time, which causes significant delay in rendering complicated scenes. In particular, the cblucy.dae (an image with over 100,000 triangles) took the longest to render, over 2 minutes. However the described BVH approach now runs in O(log(n)) and signficantly cut down run time to less than a tenth of a second to run. We observe a similar optimized result with the maxplank.dae rendering which contains tens of thousands of triangles. By using BVH, we were able to quickly render scenes that previvously would take too long to be usable. 
+        The naive render approach runs in O(n) time, which causes significant delay in rendering complicated scenes. In particular, the cblucy.dae (an image with over 100,000 triangles) took the longest to render, over 2 minutes. However the described BVH approach now runs in O(log(n)) and significantly cut down run time to less than a tenth of a second to run. We observe a similar optimized result with the maxplank.dae rendering which contains tens of thousands of triangles. By using BVH, we were able to quickly render scenes that previously would take too long to be usable. 
       </p>
       <br>
 
