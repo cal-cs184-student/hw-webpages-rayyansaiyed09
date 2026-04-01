@@ -251,7 +251,10 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
       Walk through both implementations of the direct lighting function.
     </h3>
     <p>
-      YOUR RESPONSE GOES HEREE
+      Uniform Hemisphere Sampling: We want to estimate the lighting by randomly samping directions uniformly across a hemisphere. For every sample, we et a random direction (wi) using <code>hemisphereSampler->get_sample()</code>. The nwe convverto world space and shoot a ray in that direction. WE can check the emission to determine if the intersected obejct is a light source. Finally we accumulate the reflectance equation as described in lecture: <code>f(wo, wi) * wi_object.z * 1/2PI</code> and divide by num_samples to get an average. <br></br>
+    
+      Lighting Sampling: Here instead of randomly sampling, we sample directions toward each light source using <code>smaple_L()</code>. We then skip any lights behind the surface, <code>wi_local.z < 0</code> and shoot a ray toward the light. If there is a block, we know that there is a shadow and can skip. Otherwise we can apply the reflectance equation like before.
+
     </p>
 
     <h3>
@@ -338,7 +341,7 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
       analysis.
     </h3>
     <p>
-      YOUR RESPONSE GOES HERE
+      It is clear from these images that lighting sampling produces much cleaner shadows than uniform hemisphere sampling. With uniform hemispehre sampling, most rays that are sampled do not actually point to any light source, so a lot of work does not contribute anything. Performance-wise lighting sampling is far more efficient since we are only working with rays that we can guarantee to be hitting a light source. In the images we can see the substantial amount of noise in uniform hemispehre sampling due to the inherent randomness of the sampling. Most samples are misses, but some samples have large spikes which adds to the variance across the samples.
     </p>
     <br>
 
