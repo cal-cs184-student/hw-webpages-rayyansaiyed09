@@ -251,9 +251,9 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
       Walk through both implementations of the direct lighting function.
     </h3>
     <p>
-      Uniform Hemisphere Sampling: We want to estimate the lighting by randomly samping directions uniformly across a hemisphere. For every sample, we et a random direction (wi) using <code>hemisphereSampler->get_sample()</code>. The nwe convverto world space and shoot a ray in that direction. WE can check the emission to determine if the intersected obejct is a light source. Finally we accumulate the reflectance equation as described in lecture: <code>f(wo, wi) * wi_object.z * 1/2PI</code> and divide by num_samples to get an average. <br></br>
+      Uniform Hemisphere Sampling: We want to estimate the lighting by randomly sampling directions uniformly across a hemisphere. For every sample, we get a random direction (wi) using <code>hemisphereSampler->get_sample()</code>. Then we convverto world space and shoot a ray in that direction. We can check the emission to determine if the intersected obejct is a light source. Finally we accumulate the reflectance equation as described in lecture: <code>f(wo, wi) * wi_object.z * 1/2PI</code> and divide by num_samples to get an average. <br></br>
     
-      Lighting Sampling: Here instead of randomly sampling, we sample directions toward each light source using <code>smaple_L()</code>. We then skip any lights behind the surface, <code>wi_local.z < 0</code> and shoot a ray toward the light. If there is a block, we know that there is a shadow and can skip. Otherwise we can apply the reflectance equation like before.
+      Lighting Sampling: Here instead of randomly sampling, we sample directions toward each light source using <code>sample_L()</code>. We then skip any lights behind the surface, <code>wi_local.z < 0</code> and shoot a ray toward the light. If there is a block, we know that there is a shadow and can skip. Otherwise we can apply the reflectance equation like before.
 
     </p>
 
