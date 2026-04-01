@@ -332,7 +332,7 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
       </table>
     </div>
     <p>
-      Here we are changing how many rays we shoot towards the oight source for each pixel. With only a single ray for each pixel, we see a very blotchy output since the shadow is binary, either the ray is block or it is not. However, we can increase the number of rays to smooth out this shadow and get a softer, more gradient-like shadow. With 4 rays, we can determine if a pixel is 0%, 25%, 50%, 75%, or 100% blocked. Using 64 rays gives us a very clean output that seems natural.
+      Here we are changing how many rays we shoot towards the light source for each pixel. With only a single ray for each pixel, we see a very blotchy output since the shadow is binary, either the ray is blocked or it is not. However, we can increase the number of rays to smooth out this shadow and get a softer, more gradient-like shadow. With 4 rays, we can determine if a pixel is 0%, 25%, 50%, 75%, or 100% blocked. Using 64 rays gives us a very clean output that seems natural.
     </p>
     <br>
 
