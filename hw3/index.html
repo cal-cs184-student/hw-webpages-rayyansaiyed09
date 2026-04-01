@@ -341,7 +341,7 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
       analysis.
     </h3>
     <p>
-      It is clear from these images that lighting sampling produces much cleaner shadows than uniform hemisphere sampling. With uniform hemispehre sampling, most rays that are sampled do not actually point to any light source, so a lot of work does not contribute anything. Performance-wise lighting sampling is far more efficient since we are only working with rays that we can guarantee to be hitting a light source. In the images we can see the substantial amount of noise in uniform hemispehre sampling due to the inherent randomness of the sampling. Most samples are misses, but some samples have large spikes which adds to the variance across the samples.
+      It is clear from these images that lighting sampling produces much cleaner shadows than uniform hemisphere sampling. With uniform hemisphere sampling, most rays that are sampled do not actually point to any light source, so a lot of work does not contribute anything. Performance-wise lighting sampling is far more efficient since we are only working with rays that we can guarantee to be hitting a light source. In the images we can see the substantial amount of noise in uniform hemisphere sampling due to the inherent randomness of the sampling. Most samples are misses, but some samples have large spikes which adds to the variance across the samples.
     </p>
     <br>
 
