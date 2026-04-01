@@ -309,27 +309,27 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
         <tr align="center">
           <td>
             <img src="images/part3_CBbunny_l1.png" align="middle" width="200px" />
-            <figcaption>1 Light Ray (example1.dae)</figcaption>
+            <figcaption>1 Light Ray (CBbunny.dae)</figcaption>
           </td>
           <td>
             <img src="images/part3_CBbunny_l4.png" align="middle" width="200px" />
-            <figcaption>4 Light Rays (example1.dae)</figcaption>
+            <figcaption>4 Light Rays (CBbunny.dae)</figcaption>
           </td>
         </tr>
         <tr align="center">
           <td>
             <img src="images/part3_CBbunny_l16.png" align="middle" width="200px" />
-            <figcaption>16 Light Rays (example1.dae)</figcaption>
+            <figcaption>16 Light Rays (CBbunny.dae)</figcaption>
           </td>
           <td>
             <img src="images/part3_CBbunny_l64-1.png" align="middle" width="200px" />
-            <figcaption>64 Light Rays (example1.dae)</figcaption>
+            <figcaption>64 Light Rays (CBbunny.dae)</figcaption>
           </td>
         </tr>
       </table>
     </div>
     <p>
-      YOUR EXPLANATION GOES HERE
+      Here we are changing how many rays we shoot towards the oight source for each pixel. With only a single ray for each pixel, we see a very blotchy output since the shadow is binary, either the ray is block or it is not. However, we can increase the number of rays to smooth out this shadow and get a softer, more gradient-like shadow. With 4 rays, we can determine if a pixel is 0%, 25%, 50%, 75%, or 100% blocked. Using 64 rays gives us a very clean output that seems natural.
     </p>
     <br>
 
