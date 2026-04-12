@@ -75,6 +75,14 @@
 
 		<h2>Part 2: Simulation via numerical integration</h2>
 
+		In this part we used Hookes' Law to animate a falling sheet of cloth. 
+		
+		The spring constant is responsible for the stiffness which is shown. Having a high spring constant means that the sheet is more rigid. 
+
+		The density determines the overall mass of each individual point, which results in gravity pulling harder and more aggressively, causing more wrinkles.
+
+		The damping constant controls how much is energy is lost due to friction. Having low damping, will lean more towards the sheet violently swinging. 
+		
 		<figure>
 			<img src="part2.png" style="width:70%"/>
 			<figcaption>pinned4.json post-animation with default parameters.</figcaption>
@@ -95,11 +103,11 @@
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="part2 - highks - 1.png" width="400px"/>
-				  <figcaption>Ks = 100,000 N/m. Cloth appears sturdier. Resistant to change.</figcaption>
+				  <figcaption>Ks = 100,000 N/m. Cloth appears sturdier. Resistant to change. (1)</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="part2 - highks-2.png" width="400px"/>
-				  <figcaption>Ks = 100,000 N/m. No wrinkles or curves while falling down. Cloth likes to stay together, resembles a heavier, ssturdeir type of object.</figcaption>
+				  <figcaption>Ks = 100,000 N/m. No wrinkles or curves while falling down. Cloth likes to stay together, resembles a heavier, sturdier type of object. (2)</figcaption>
 				</td>
 			  </tr>
 			   <tr>
@@ -122,6 +130,17 @@
 				  <figcaption>Density = 1000 g/cm^3. More wrinkles due to its own weight. (2)</figcaption>
 				</td>
 			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part2 - low damping.png" width="400px"/>
+				  <figcaption>Damping = 0.05%. Sheet swings quite a bit as if it's outside. Image shows sheet swinging backwards. Swings back and forth 5-6 times before coming to a standstill.  </figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part2 - high damping.png" width="400px"/>
+				  <figcaption>Damping = 0.7%. Sheet gently flows until hanging down. Does not have any swing. </figcaption>
+				</td>
+				</tr>
+
 			</table>
 		</div>
 
