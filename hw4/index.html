@@ -146,7 +146,34 @@
 
 
 		<h2>Part 3: Handling collisions with other objects</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<b>Sphere</b>: For each point mass (pm), we calculate the distance from the pm to the origin of the sphere and compare this to the radius of the sphere to determine if the pm is inside/outside. If inside, we have a collision. We determine the correction we need to apply to the last_position by finding the tangent point. We get this by getting the vector from the sphere's origin to the pm's position. The correction would then be tangent minus the pm's last position, which was then multiplied by (1-f) for friction.
+		
+		<b>Plane</b>: For each point mass, we want to know if it crosses over the plane. We can take the dot product of the pm's position and last position (from the plane's point) with the plane normal. If the signs are different, there is a collision. In this case, we find the tangent point by projecting the current position onto the plane along the normal, while accounting for a small SURFACE_OFFSET. Once we have the tangent, we can apply the correction to the pm's position by combining it with it's last position and the correction (and applying the friction factor).
+		
+				<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part3 - sphere - 500.png" width="400px"/>
+				  <figcaption>Ks = 500 N/m. Cloth drapes and hugs tightly to the sphere, taking its shape. Lots of wrinkles.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3 - sphere - 5000.png" width="400px"/>
+				  <figcaption>Ks = 5000 N/m. Moderately hugs the sphere with less wrinkles compared to 500 N/m. </figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3 - sphere 50000.png" width="400px"/>
+				  <figcaption>Ks = 50000 N/m. Cloth appears stiff and does not hug the sphere very much, retaining its original shape. </figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<figure>
+			<img src="part3 - plane.png" style="width:70%"/>
+			<figcaption>Cloth collision with plane.</figcaption>
+		</figure>
+
+
 
 		<h2>Part 4: Handling self-collisions</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
